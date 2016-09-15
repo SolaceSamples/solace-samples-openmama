@@ -12,7 +12,7 @@ This repository contains code and matching tutorial walk throughs to get you sta
 
 See the individual tutorials for details:
 
-- [Linux Installation](https://solacesamples.github.io/solace-samples-openmama/docs/linux-installation)
+- [Linux Installation](https://solacesamples.github.io/solace-samples-openmama/docs/installation-linux)
 - [Hello World](https://solacesamples.github.io/solace-samples-openmama/docs/hello-world)
 - [Publish / Subscribe](https://solacesamples.github.io/solace-samples-openmama/docs/publish-subscribe)
 
