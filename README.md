@@ -57,7 +57,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-See the list of [contributors](https://github.com/SolaceSamples/solace-samples-java/contributors) who participated in this project.
+See the list of [contributors](https://github.com/SolaceSamples/solace-samples-openmama/contributors) who participated in this project.
 
 ## License
 
