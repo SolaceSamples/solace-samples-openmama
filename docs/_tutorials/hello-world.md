@@ -29,7 +29,7 @@ This tutorial will show you how to publish a message with one string field to a 
 
 Installation instructions for OpenMAMA can be found on [OpenMAMA Wiki](http://www.openmama.org/content/quick-start-guide#main){:target="_blank"}.
 
-Simplified installation instructions for OpenMAMA with Solace middleware bridge [are available here]({{ site.baseurl }}/docs/installation-linux).
+Simplified installation instructions for OpenMAMA with Solace middleware bridge [are available here]({{ site.baseurl }}/installation-linux).
 
 For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki/Build-Instructions){:target="_blank"}.
 

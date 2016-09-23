@@ -10,7 +10,7 @@ icon: publish-subscribe.png
 This tutorial assumes the following:
 
 *   You are familiar with OpenMAMA [core concepts](https://sftp.solacesystems.com/Portal_Docs/OpenMAMA_User_Guide/01_Introduction.html){:target="_top"}.
-    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"} and [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/docs/hello-world).
+    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"} and [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world).
 *   You are familiar with Solace [core concepts](http://dev.solacesystems.com/docs/core-concepts/){:target="_top"}.
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}.
     *   Solace middleware bridge with its dependencies is also installed
@@ -33,7 +33,7 @@ This tutorial will show you how to use OpenMAMA C API:
 
 Installation instructions for OpenMAMA can be found on [OpenMAMA Wiki](http://www.openmama.org/content/quick-start-guide#main){:target="_blank"}.
 
-Simplified installation instructions for OpenMAMA with Solace middleware bridge [are available]({{ site.baseurl }}/docs/installation-linux).
+Simplified installation instructions for OpenMAMA with Solace middleware bridge [are available]({{ site.baseurl }}/installation-linux).
 
 For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki/Build-Instructions){:target="_blank"}.
 
@@ -83,11 +83,11 @@ In order to send or receive messages to a Solace Message Router, you need to kno
 </tbody>
 </table>
 
-Example of specifying these properties [see here]({{ site.repository }}/blob/master/src/pubsub/mama.properties){:target="_blank"} and detailed explanation of them is in the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/docs/hello-world).
+Example of specifying these properties [see here]({{ site.repository }}/blob/master/src/pubsub/mama.properties){:target="_blank"} and detailed explanation of them is in the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world).
 
 ## Receiving Message
 
-Before everything else, as you already know from the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/docs/hello-world), we need to [initialize]({{ site.baseurl }}/docs/hello-world/#initialize) the **Solace middleware bridge** and [create a transport]({{ site.baseurl }}/docs/hello-world/#create-transport).
+Before everything else, as you already know from the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world), we need to [initialize]({{ site.baseurl }}/hello-world/#initialize) the **Solace middleware bridge** and [create a transport]({{ site.baseurl }}/hello-world/#create-transport).
 
 To learn more about how to initialize and configure **Solace middleware bridge as an OpenMAMA transport** see [Solace OpenMAMA User Guide](https://sftp.solacesystems.com/Portal_Docs/index.html#page/OpenMAMA_User_Guide/Configuring_Solace_OpenMAMA_Bridges.html){:target="_top"}
 
@@ -246,9 +246,9 @@ void stopAll()
 
 ## Sending Message
 
-As usual, before everything else, we need to [initialize]({{ site.baseurl }}/docs/hello-world/#initialize) the **Solace middleware bridge** and [create a transport]({{ site.baseurl }}/docs/hello-world/#create-transport).
+As usual, before everything else, we need to [initialize]({{ site.baseurl }}/hello-world/#initialize) the **Solace middleware bridge** and [create a transport]({{ site.baseurl }}/hello-world/#create-transport).
 
-Now we can implement sending a message, and as you already know from the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/docs/hello-world/#create-publisher), to publish a message we need to create a _publisher_.
+Now we can implement sending a message, and as you already know from the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world/#create-publisher), to publish a message we need to create a _publisher_.
 
 A _publisher_ is created for a specific topic and refers to already created _transport_:
 
