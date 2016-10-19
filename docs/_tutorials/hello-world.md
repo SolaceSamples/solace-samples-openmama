@@ -9,9 +9,9 @@ icon: hello-world.png
 
 This tutorial assumes the following:
 
-*   You are familiar with OpenMAMA [core concepts](https://sftp.solacesystems.com/Portal_Docs/OpenMAMA_User_Guide/01_Introduction.html){:target="_top"}.
+*   You are familiar with OpenMAMA [core concepts]({{ site.docs-openmama-concepts }}){:target="_top"}.
     *   If not, see [this guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"}.
-*   You are familiar with Solace [core concepts](http://dev.solacesystems.com/docs/core-concepts/){:target="_top"}.
+*   You are familiar with Solace [core concepts]({{ site.docs-solace-concepts }}){:target="_top"}.
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}.
     *   Solace middleware bridge with its dependencies is also installed
 *   You have access to a running Solace message router with the following configuration:
@@ -38,7 +38,7 @@ For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAM
 There are two ways you can get hold of the **Solace message router**:
 
 *   If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
-*   If you do not have access to a Solace message router, you will need to use the [Solace Virtual Message Router](http://dev.solacesystems.com/tech/virtual-message-router/){:target="_top"}. Go through the [Set up a VMR](http://dev.solacesystems.com/get-started/vmr-setup-tutorials/setting-up-solace-vmr/){:target="_top"} tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
+*   If you do not have access to a Solace message router, you will need to use the [Solace Virtual Message Router]({{ site.link-tech-vmr }}){:target="_top"}. Go through the [Set up a VMR]({{ site.docs-vmr-setup }}){:target="_top"} tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
 
 Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration, adapt the instructions to match your configuration.
 
@@ -102,26 +102,26 @@ This is how it is done.
 
 Begin by declaring the bridge pointer:
 
-```c
+```cpp
     mamaBridge bridge = NULL;
 ```
 
 Then we need to load the bridge, referring to it by its name (**“solace”**), and open it by calling `mama_open()`:
 
-```c
+```cpp
     mama_loadBridge(&bridge, "solace");
     mama_open();
 ```
 
 Opening of the bridge must have a corresponding closing `mama_close()` call:
 
-```c
+```cpp
     mama_close();
 ```
 
 This is already a program that can be compiled and executed, let’s add to it some console messages that would help us to watch it running, and some rudimentary error handling.
 
-```c
+```cpp
 #include <stdio.h>
 #include <mama/mama.h>
 
@@ -210,7 +210,7 @@ mamaTransport_destroy(transport);
 
 This is how our program looks now, let’s compile and run it.
 
-```c
+```cpp
 #include <stdio.h>
 #include <mama/mama.h>
 
@@ -276,13 +276,13 @@ Each property corresponds to one of the [Solace Message Router Properties](#sola
 
 Now we need to modify our program to refer to this **properties file** by its name and location (in the current directory: `"."`):
 
-```c
+```cpp
 mama_openWithProperties(".","mama.properties");
 ```
 
 This is how our program looks now, let’s compile and run it.
 
-```
+```cpp
 #include <stdio.h>
 #include <mama/mama.h>
 
@@ -321,14 +321,14 @@ The only thing we want to happen with this program is to publish the “Hello Wo
 
 A publisher is created for a specific topic (named `“tutorial.topic”` in this tutorial) and the already created transport:
 
-```c
+```cpp
 mamaPublisher publisher = NULL;
 mamaPublisher_create(&publisher, transport, "tutorial.topic", NULL, NULL);
 ```
 
 It needs to have a corresponding `destroy` call:
 
-```c
+```cpp
 mamaPublisher_destroy(publisher);
 ```
 
@@ -338,7 +338,7 @@ The publisher is ready, let’s create the message we’re going to publish.
 
 A message is created with one call, but it is created empty, so we need to add a field with the string `"Hello World"` in it.
 
-```c
+```cpp
 mamaMsg message = NULL;
 mamaMsg_create(&message);
 mamaMsg_addString(message, "MyGreetingField", 99, "Hello World");
@@ -350,14 +350,14 @@ Notice that our field has a _name_ (`"MyGreetingField"`) and a _field identifier
 
 At this point the only things left are to send the message and to delete it afterwards to avoid memory leaks:
 
-```c
+```cpp
 mamaPublisher_send(publisher, message);
 mamaMsg_destroy(message);
 ```
 
 This is the final look of our program.
 
-```c
+```cpp
 #include <stdio.h>
 #include <mama/mama.h>
 
@@ -447,7 +447,7 @@ Please see the Licensing file for details
 Message published, closing Solace middleware bridge.
 ```
 
-You can see the message published by listening for it on the **Solace message router** with the [`sdkperf_c` utility](http://dev.solacesystems.com/docs/sdkperf-user-guide/):
+You can see the message published by listening for it on the **Solace message router** with the [`sdkperf_c` utility]({{ site.docs-sdkperf }}):
 
 ```
 $ ./sdkperf_c -cip=192.168.1.75 -cu=default@default -stl=">" -md
@@ -483,7 +483,7 @@ Between the _Start Message_ and _End Message_ console output you can see the pub
 
 Congratulations! You have now successfully published a message on a Solace message router using OpenMAMA with the Solace middleware bridge.
 
-If you have any issues with this program, check the [Solace community](http://dev.solacesystems.com/community/){:target="_blank"} for answers to common issues.
+If you have any issues with this program, check the [Solace community]({{ site.link-community }}){:target="_blank"} for answers to common issues.
 
 ## Resources
 
@@ -495,9 +495,9 @@ For more information about OpenMAMA:
 
 For more information about Solace technology:
 
-*   The Solace Developer Portal website at: [http://dev.solacesystems.com](http://dev.solacesystems.com/){:target="_top"}
-*   Get a better understanding of [Solace technology](http://dev.solacesystems.com/tech/){:target="_top"}.
-*   Ask the [Solace community](http://dev.solacesystems.com/community/){:target="_top"}.
+*   The Solace Developer Portal website at: [{{ site.link-portal }}]({{ site.link-portal}}){:target="_top"}
+*   Get a better understanding of [Solace technology]({{ site.link-tech }}){:target="_top"}.
+*   Ask the [Solace community]({{ site.link-community }}){:target="_top"}.
 
 Other tutorials and samples:
 

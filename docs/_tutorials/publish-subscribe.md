@@ -9,9 +9,9 @@ icon: publish-subscribe.png
 
 This tutorial assumes the following:
 
-*   You are familiar with OpenMAMA [core concepts](https://sftp.solacesystems.com/Portal_Docs/OpenMAMA_User_Guide/01_Introduction.html){:target="_top"}.
+*   You are familiar with OpenMAMA [core concepts]({{ site.docs-openmama-concepts }}){:target="_top"}.
     *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"} and [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world).
-*   You are familiar with Solace [core concepts](http://dev.solacesystems.com/docs/core-concepts/){:target="_top"}.
+*   You are familiar with Solace [core concepts]({{ site.docs-solace-concepts }}){:target="_top"}.
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}.
     *   Solace middleware bridge with its dependencies is also installed
 *   You have access to a running Solace Message Router with the following configuration:
@@ -42,7 +42,7 @@ For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAM
 There are two ways you can get hold of the **Solace message router**:
 
 *   If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
-*   If you do not have access to a Solace message router, you will need to use the [Solace Virtual Message Router](http://dev.solacesystems.com/tech/virtual-message-router/){:target="_top"}. Go through the [Set up a VMR](http://dev.solacesystems.com/get-started/vmr-setup-tutorials/setting-up-solace-vmr/){:target="_top"} tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
+*   If you do not have access to a Solace message router, you will need to use the [Solace Virtual Message Router]({{ site.link-tech-vmr }}){:target="_top"}. Go through the [Set up a VMR]({{ site.docs-vmr-setup }}){:target="_top"} tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
 
 Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration, adapt the instructions to match your configuration.
 
@@ -89,7 +89,7 @@ Example of specifying these properties [see here]({{ site.repository }}/blob/mas
 
 Before everything else, as you already know from the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world), we need to [initialize]({{ site.baseurl }}/hello-world/#initialize) the **Solace middleware bridge** and [create a transport]({{ site.baseurl }}/hello-world/#create-transport).
 
-To learn more about how to initialize and configure **Solace middleware bridge as an OpenMAMA transport** see [Solace OpenMAMA User Guide](https://sftp.solacesystems.com/Portal_Docs/index.html#page/OpenMAMA_User_Guide/Configuring_Solace_OpenMAMA_Bridges.html){:target="_top"}
+To learn more about how to initialize and configure **Solace middleware bridge as an OpenMAMA transport** see [Solace OpenMAMA User Guide]({{ site.docs-openmama-bridges }}){:target="_top"}
 
 Now we can implement receiving a message.
 
@@ -103,7 +103,7 @@ For details of the **event queue** see [OpenMAMA Developer’s Guide for C](http
 
 When multi-threading is not required it is recommended to use the _default internal event queue_ as an _event queue_:
 
-```c
+```cpp
 mamaQueue defaultQueue;
 mama_getDefaultEventQueue(global.bridge, &defaultQueue))
 ```
@@ -118,7 +118,7 @@ It has a type of `mamaMsgCallbacks` and it is expected to have, as a minimum, th
 
 This is how the routine for creating a subscription is implemented:
 
-```c
+```cpp
 void subscribeToTopic(const char * topicName)
 {
     global.subscription = NULL;
@@ -155,7 +155,7 @@ Notice that `global.receiver` is assigned with pointers to functions we want to 
 
 When a subscription is created, we want to see its topic name on the console:
 
-```c
+```cpp
 void onCreate(mamaSubscription subscription, void * closure)
 {
     const char * topicName = NULL;
@@ -168,7 +168,7 @@ void onCreate(mamaSubscription subscription, void * closure)
 
 When an error occurs, we want to see on the console the error code:
 
-```c
+```cpp
 void onError(mamaSubscription subscription, mama_status status,
         void * platformError, const char * subject, void * closure)
 {
@@ -181,7 +181,7 @@ void onError(mamaSubscription subscription, mama_status status,
 
 When a message arrives, we extract from the message the topic name and a custom string field we know was added to that message:
 
-```c
+```cpp
 void onMessage(mamaSubscription subscription, mamaMsg message, void * closure, void * itemClosure)
 {
     const char * topicName = NULL;
@@ -203,13 +203,13 @@ void onMessage(mamaSubscription subscription, mamaMsg message, void * closure, v
 
 Now we can start receiving messages:
 
-```c
+```cpp
 mama_start(global.bridge);
 ```
 
 This `mama_start` call blocks execution of the current thread until `mama_stop` is called, that is why we need to implement a handler for stopping our program by pressing `Ctrl-C` from console.
 
-```c
+```cpp
 void stopHandler(int value)
 {
     signal(value, SIG_IGN);
@@ -227,7 +227,7 @@ The `stopAll` routine has `destroy` calls for the created transport and subscrip
 
 Order of calls in that routine is very important and the very first one must be `mama_stop`:
 
-```c
+```cpp
 void stopAll()
 {
     mama_stop(global.bridge);
@@ -261,7 +261,7 @@ We want our program to publish messages periodically, until we stop it (by press
 
 OpenMAMA provides a very convenient mechanism for a periodic event in a forms of _mamaTimer_. Such timers created with a reference to an _event queue_ and we can use the _default internal event queue_ for it:
 
-```c
+```cpp
 global.publishTimer = NULL;
 mamaTimer_create(&global.publishTimer, defaultQueue, timerCallback, intervalSeconds, NULL);
 ```
@@ -270,7 +270,7 @@ The `timerCallback` parameter is a pointer to a function that will be invoked by
 
 We’re going to implement this function to send one message with three different fields, one of them is a custom field with the message timestamp as a string:
 
-```c
+```cpp
 void timerCallback(mamaTimer timer, void* closure)
 {
     // generate a timestamp as one of the message fields
@@ -303,7 +303,7 @@ void timerCallback(mamaTimer timer, void* closure)
 
 Now we can start sending messages:
 
-```c
+```cpp
 mama_start(global.bridge);
 ```
 
@@ -311,7 +311,7 @@ Because `mama_start` call blocks execution of the current thread until `mama_sto
 
 That handler calls `stopAll`. As you already know, order of calls in `stopAll` routine is very important and the very first one must be `mama_stop`:
 
-```c
+```cpp
 void stopAll()
 {
     mama_stop(global.bridge);
@@ -460,7 +460,7 @@ Closing Solace middleware bridge.
 
 Congratulations! You have now successfully subscribed to a topic and exchanged messages using this topic on using OpenMAMA with the Solace middleware bridge.
 
-If you have any issues with this program, check the [Solace community](http://dev.solacesystems.com/community/){:target="_blank"} for answers to common issues.
+If you have any issues with this program, check the [Solace community]({{ site.link-community }}){:target="_blank"} for answers to common issues.
 
 ## Resources
 
@@ -472,9 +472,9 @@ For more information about OpenMAMA:
 
 For more information about Solace technology:
 
-*   The Solace Developer Portal website at: [http://dev.solacesystems.com](http://dev.solacesystems.com/){:target="_top"}
-*   Get a better understanding of [Solace technology](http://dev.solacesystems.com/tech/){:target="_top"}.
-*   Ask the [Solace community](http://dev.solacesystems.com/community/){:target="_top"}.
+*   The Solace Developer Portal website at: [{{ site.link-portal }}]({{ site.link-portal}}){:target="_top"}
+*   Get a better understanding of [Solace technology]({{ site.link-tech }}){:target="_top"}.
+*   Ask the [Solace community]({{ site.link-community }}){:target="_top"}.
 
 Other tutorials and samples:
 

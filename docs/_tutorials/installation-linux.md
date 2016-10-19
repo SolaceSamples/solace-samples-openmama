@@ -34,7 +34,7 @@ Bridge is what communicates with a specific messaging broker, and different brid
 
 Out-of-box `mama.properties` refers to the **Apache Qpid** middleware bridge, and most of the OpenMAMA sample applications by default refer to a different (proprietary) bridge, but we’re going to use the **Solace middleware bridge** that enables communication with a **Solace message router**.
 
-The Solace middleware bridge is currently unavailable for public download. For access, please contact [Solace Customer Support](http://dev.solacesystems.com/support/){:target="_top"}.
+The Solace middleware bridge is currently unavailable for public download. For access, please contact [Solace Customer Support]({{ site.link-support }}){:target="_top"}.
 
     $ wget <…location...>/solopenmama_bridge_Linux26-x86_64_opt_7.2.0.165.tar.gz
 
@@ -42,7 +42,7 @@ Untar it into a dedicated location and append this location **lib** directory to
 
     $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<…>/solopenmama_bridge/lib
 
-The Solace middleware bridge implementation has a dependency on **Solace Messaging API for C**. The C API library can be [downloaded here](http://solacesystems2.staging.wpengine.com/downloads/){:target="_top"}.
+The Solace middleware bridge implementation has a dependency on **Solace Messaging API for C**. The C API library can be [downloaded here]({{ site.link-downloads }}){:target="_top"}.
 
     $ wget <…location…>/solclient_Linux26-x86_64_opt_7.2.0.489.tar.gz
 
@@ -73,4 +73,4 @@ $ ldd topicPublishOne
 
 If you have any problems installing OpenMAMA, ask OpenMAMA developers and users at [Gitter OpenMAMA room](https://gitter.im/OpenMAMA/OpenMAMA){:target="_blank"}.
 
-If you have any problems installing the Solace components, check the [Solace community](http://dev.solacesystems.com/community/){:target="_top"} for answers to common issues.
+If you have any problems installing the Solace components, check the [Solace community]({{ site.link-community }}){:target="_top"} for answers to common issues.

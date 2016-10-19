@@ -6,7 +6,17 @@ repository: https://github.com/SolaceSamples/solace-samples-openmama
 # Also see _includes/intro.html to customize the description which gets included in index.html.
 
 # Links
+link-portal: http://dev.solace.com
+link-tech: http://dev.solace.com/tech/
+link-tech-vmr: http://dev.solace.com/tech/virtual-message-router/
+link-community: http://dev.solace.com/community/
+link-support: http://dev.solace.com/support/
+link-downloads: http://dev.solace.com/downloads/
 docs-vmr-setup: http://docs.solace.com/Solace-VMR-Set-Up/Setting-Up-VMRs.htm
+docs-solace-concepts: http://docs.solace.com/Features/Core-Concepts.htm
+docs-openmama-concepts: http://docs.solace.com/Solace-OpenMama/Solace-OpenMAMA-Overview.htm
+docs-openmama-bridges: http://docs.solace.com/Solace-OpenMama/Configuring-Solace-OpenMAMA-Bridges.htm
+docs-sdkperf: http://docs.solace.com/SDKPerf/SDKPerf.htm
 
 #----------------------------------------------------
 # Generally don't modify items below this point
