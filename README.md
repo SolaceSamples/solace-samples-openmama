@@ -4,7 +4,7 @@
 These tutorials will get you up to speed and sending messages with Solace technology using the OpenMAMA API. There are two ways you can get started:
 
 - If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
-- If you do not have access to a Solace message router, you will need to go through the “[Set up a VMR](http://dev.solacesystems.com/get-started/vmr-setup-tutorials/setting-up-solace-vmr/)” tutorial to download and install the software.
+- If you do not have access to a Solace message router, you will need to go through the “[Set up a VMR](http://docs.solace.com/Solace-VMR-Set-Up/Setting-Up-VMRs.htm)” tutorial to download and install the software.
 
 ## Contents
 
@@ -73,7 +73,7 @@ For more information about OpenMAMA:
 
 For more information about Solace technology:
 
-- The Solace Developer Portal website at: [http://dev.solacesystems.com](http://dev.solacesystems.com/)
-- Get a better understanding of [Solace technology](http://dev.solacesystems.com/tech/).
-- Check out the [Solace blog](http://dev.solacesystems.com/blog/) for other interesting discussions around Solace technology.
-- Ask the [Solace community](http://dev.solacesystems.com/community/).
+- The Solace Developer Portal website at: http://dev.solace.com
+- Get a better understanding of [Solace technology](http://dev.solace.com/tech/).
+- Check out the [Solace blog](http://dev.solace.com/blog/) for other interesting discussions around Solace technology
+- Ask the [Solace community.](http://dev.solace.com/community/)
