@@ -499,7 +499,7 @@ For more information about Solace technology:
 *   Get a better understanding of [Solace technology]({{ site.link-tech }}){:target="_top"}.
 *   Ask the [Solace community]({{ site.link-community }}){:target="_top"}.
 
-Other tutorials and samples:
+Other tutorials and related links:
 
 *   [OpenMAMA Quick Start Guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"}
 *   [OpenMAMA Wiki Quick Start Guide](https://github.com/OpenMAMA/OpenMAMA/wiki/Quick-Start-Guide){:target="_blank"}
@@ -507,4 +507,4 @@ Other tutorials and samples:
 *   [OpenMAMA Code Examples](https://github.com/OpenMAMA/OpenMAMA/tree/master/mama/c_cpp/src/examples){:target="_blank"}
 *   [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki){:target="_blank"}
 *   [OpenMAMA Documentation and Developers Guides](http://www.openmama.org/documentation){:target="_blank"}
-*   [Solace’s Solution for OpenMAMA](http://solacesystems2.staging.wpengine.com/tech/openmama/){:target="_blank"}
+*   [Solace’s Solution for OpenMAMA]({{ site.link-tech-openmama }}){:target="_top"}
