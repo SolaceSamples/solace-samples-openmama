@@ -7,12 +7,12 @@ icon: installation.png
 
 Download pre-packaged OpenMAMA from the [OpenMAMA GitHub releases page](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}:
 
-    $ wget https://github.com/OpenMAMA/OpenMAMA/releases/download/OpenMAMA-2.4.1-release/openmama-2.4.1-1.el7.centos.x86_64.rpm
+    $ wget https://github.com/OpenMAMA/OpenMAMA/releases/download/OpenMAMA-6.2.0-release/openmama-6.2.0-1.el7.centos.x86_64.rpm
 
 
 Install it with `rpm`:
 
-    $ sudo rpm --install openmama-2.4.1-1.el7.centos.x86_64.rpm
+    $ sudo rpm --install openmama-6.2.0-1.el7.centos.x86_64.rpm
 
 
 Files will be installed into `/opt/openmama` directory:
@@ -36,7 +36,7 @@ Out-of-box `mama.properties` refers to the **Apache Qpid** middleware bridge, an
 
 The Solace middleware bridge is currently unavailable for public download. For access, please contact [Solace Customer Support]({{ site.link-support }}){:target="_top"}.
 
-    $ wget <…location...>/solopenmama_bridge_Linux26-x86_64_opt_7.2.0.165.tar.gz
+    $ wget <…location...>/solopenmama_bridge_Linux26-x86_64_opt_7.3.0.7.tar.gz
 
 Untar it into a dedicated location and append this location **lib** directory to **LD_LIBRARY_PATH**.
 
@@ -44,7 +44,7 @@ Untar it into a dedicated location and append this location **lib** directory to
 
 The Solace middleware bridge implementation has a dependency on **Solace Messaging API for C**. The C API library can be [downloaded here]({{ site.link-downloads }}){:target="_top"}.
 
-    $ wget <…location…>/solclient_Linux26-x86_64_opt_7.2.0.489.tar.gz
+    $ wget <…location…>/solclient_Linux26-x86_64_opt_7.3.0.7.tar.gz
 
 Untar it into a dedicated location and append this location **lib** directory to **LD_LIBRARY_PATH**.
 
