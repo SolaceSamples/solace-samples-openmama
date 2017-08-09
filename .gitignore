@@ -6,3 +6,4 @@ _site
 docs/_site
 /bin/
 .project
+.idea
