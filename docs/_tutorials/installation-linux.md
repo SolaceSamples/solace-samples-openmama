@@ -5,6 +5,8 @@ summary: This tutorial shows you how to get the Solace OpenMAMA bridge installed
 icon: installation.png
 ---
 
+<br><br>
+
 Download pre-packaged OpenMAMA from the [OpenMAMA GitHub releases page](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}:
 
     $ wget https://github.com/OpenMAMA/OpenMAMA/releases/download/OpenMAMA-6.2.0-release/openmama-6.2.0-1.el7.centos.x86_64.rpm

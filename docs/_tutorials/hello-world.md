@@ -1,9 +1,10 @@
 ---
 layout: tutorials
 title: Solace Hello World
-summary: This tutorial demonstrates the most basic messaging interaction using OpenMAMA with the Solace middleware bridge. 
+summary: This tutorial demonstrates the most basic messaging interaction using OpenMAMA with the Solace middleware bridge.
 icon: hello-world.png
 ---
+<br><br>
 
 ## Assumptions
 
