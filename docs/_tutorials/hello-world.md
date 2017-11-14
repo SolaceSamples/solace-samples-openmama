@@ -1,8 +1,13 @@
 ---
 layout: tutorials
 title: Solace Hello World
-summary: This tutorial demonstrates the most basic messaging interaction using OpenMAMA with the Solace middleware bridge.
-icon: hello-world.png
+summary: This tutorial demonstrates basic publishing using OpenMAMA with Solace messaging
+icon: I_Solace.svg
+links:
+    - label: mama.properties
+      link: /blob/master/src/helloworld/mama.properties
+    - label: topicPublishOne.c
+      link: /blob/master/src/helloworld/topicPublishOne.c
 ---
 <br><br>
 
@@ -15,16 +20,21 @@ This tutorial assumes the following:
 *   You are familiar with Solace [core concepts]({{ site.docs-solace-concepts }}){:target="_top"}.
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}.
     *   Solace middleware bridge with its dependencies is also installed
-*   You have access to a running Solace message router with the following configuration:
-    *   Enabled Message VPN
-    *   Enabled Client Username
+*   You have access to Solace messaging with the following configuration details:
+    *   Connectivity information for a Solace message-VPN
+    *   Enabled client username and password
 
+{% if jekyll.environment == 'solaceCloud' %}
+One simple way to get access to Solace messaging quickly is to create a messaging service in Solace Cloud [as outlined here]({{ site.links-solaceCloud-setup}}){:target="_top"}. You can find other ways to get access to Solace messaging below.
+{% else %}
+One simple way to get access to a Solace message router is to start a Solace VMR load [as outlined here]({{ site.docs-vmr-setup }}){:target="_top"}. By default the Solace VMR will with the “default” message VPN configured and ready for guaranteed messaging. Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration adapt the tutorial appropriately to match your configuration.
+{% endif %}
 
 ## Goals
 
-The goal of this tutorial is to demonstrate the most basic messaging interaction using OpenMAMA with the **Solace middleware bridge**. This tutorial is similar to the [OpenMAMA Quick Start Guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"} and the [OpenMAMA Example Walk Through](http://www.openmama.org/example-walk-through){:target="_blank"}, but with a distinct focus on configuring OpenMAMA with **Solace message routers**. See the [Resources](#resources) section below for some further links to other OpenMAMA tutorials and examples.
+The goal of this tutorial is to demonstrate the most basic messaging interaction using OpenMAMA with the **Solace middleware bridge**. This tutorial is similar to the [OpenMAMA Quick Start Guide](http://www.openmama.org/content/quick-start-guide){:target="_blank"} and the [OpenMAMA Example Walk Through](http://www.openmama.org/example-walk-through){:target="_blank"}, but with a distinct focus on configuring OpenMAMA with **Solace messaging**. See the [Resources](#resources) section below for some further links to other OpenMAMA tutorials and examples.
 
-This tutorial will show you how to publish a message with one string field to a specific topic on a Solace message router using OpenMAMA C API.
+This tutorial will show you how to publish a message with one string field to a specific topic with Solace messaging using OpenMAMA C API.
 
 ## Installation
 
@@ -34,58 +44,15 @@ Simplified installation instructions for OpenMAMA with Solace middleware bridge 
 
 For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki/Build-Instructions){:target="_blank"}.
 
-## Getting Access to Solace Message Router
-
-There are two ways you can get hold of the **Solace message router**:
-
-*   If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
-*   If you do not have access to a Solace message router, you will need to use the [Solace Virtual Message Router]({{ site.link-tech-vmr }}){:target="_top"}. Go through the [Set up a VMR]({{ site.docs-vmr-setup }}){:target="_top"} tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
-
-Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration, adapt the instructions to match your configuration.
-
-
-## Solace Message Router Properties
-
-In order to send or receive messages to a Solace message router, you need to know a few details of how to connect to the Solace message router. Specifically you need to know the following:
-
-<table>
-<thead>
-<tr>
-<th>Resource</th>
-<th>Value</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Host</td>
-<td>String of the form `DNS name` or `IP:Port`</td>
-<td>This is the address clients use when connecting to the Solace message router to send and receive messages. For a Solace VMR this there is only a single interface so the IP is the same as the management IP address. For Solace message router appliances this is the host address of the message-backbone.</td>
-</tr>
-<tr>
-<td>Message VPN</td>
-<td>String</td>
-<td>The Solace message router Message VPN that this client should connect to. The simplest option is to use the `default` message-vpn which is present on all Solace message routers and fully enabled for message traffic on Solace VMRs.</td>
-</tr>
-<tr>
-<td>Client Username</td>
-<td>String</td>
-<td>The client username. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value.</td>
-</tr>
-<tr>
-<td>Client Password</td>
-<td>String</td>
-<td>The optional client password. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value or omitted.</td>
-</tr>
-</tbody>
-</table>
-
-Example of specifying these properties [see here]({{ site.repository }}/blob/master/src/helloworld/mama.properties){:target="_blank"} and detailed explanation of them is [below](#create-transport).
+{% if jekyll.environment == 'solaceCloud' %}
+  {% include solaceMessaging-cloud.md %}
+{% else %}
+    {% include solaceMessaging.md %}
+{% endif %}  
 
 ## Hello World
 
-In our first program we’re going to publish one _“Hello World”_ message to a specific topic on a Solace message router using OpenMAMA with the Solace middleware bridge.
+In our first program we’re going to publish one _“Hello World”_ message to a specific topic on Solace messaging using OpenMAMA with the Solace middleware bridge.
 
 The program will consist of two major parts:
 
@@ -252,24 +219,23 @@ Now our program runs with a failure when creating of the Solace middleware bridg
 OpenMAMA error: STATUS_PLATFORM
 ```
 
-This means we cannot go on without configuring a transport for the Solace middleware bridge, and that transport is the **Solace message router**.
+This means we cannot go on without configuring a transport for the Solace middleware bridge, and that transport is **Solace messaging**.
 
 Configuring transport for the Solace middleware bridge means creating and editing a configuration file. The recommended name for this file is **mama.properties** and its location needs to be known to the bridge.
 
-Create a text file named **mama.properties** and add to it a minimum set of properties for the **Solace message router**:
+Create a text file named **mama.properties** and add to it a minimum set of properties for **Solace messaging**:
 
 ```
-mama.solace.transport.vmr.session_host=192.168.1.75
-mama.solace.transport.vmr.session_username=default
-mama.solace.transport.vmr.session_vpn_name=default
+mama.solace.transport.vmr.session_host=<host>
+mama.solace.transport.vmr.session_username=<client-username>
+mama.solace.transport.vmr.session_password=<client-password>
+mama.solace.transport.vmr.session_vpn_name=<vpn-name>
 mama.solace.transport.vmr.allow_recover_gaps=false
 ```
 
 Notice how `solace` and `vmr` property token names are the same as in `mama_loadBridge(&bridge, "solace")` and `mamaTransport_create(transport, "vmr", bridge)` calls.
 
-Each property corresponds to one of the [Solace Message Router Properties](#solace-message-router-properties):
-
-*   `mama.solace.transport.vmr.session_host` is `Host` and usually has a value of the IP address of the **Solace message router**.
+*   `mama.solace.transport.vmr.session_host` is `Host` and usually has a value of the host address of your **Solace messaging**.
 *   `mama.solace.transport.vmr.session_username` is `Client Username`
 *   `mama.solace.transport.vmr.session_password` is optional `Client Password`
 *   `mama.solace.transport.vmr.session_vpn_name` is `Message VPN`
@@ -314,7 +280,7 @@ int main(int argc, const char** argv)
 }
 ```
 
-Now our program runs without any errors and it successfully connects to the **Solace message router**. If you sleep the main thread before the `mamaTransport_destroy(transport)` call, you can see use **SolAdmin** to see this program as a client connected to the **Solace message router**.
+Now our program runs without any errors and it successfully connects to **Solace messaging**. If you sleep the main thread before the `mamaTransport_destroy(transport)` call, you can see use **SolAdmin** to see this program as a client connected to **Solace messaging**.
 
 #### Create publisher
 
@@ -408,8 +374,11 @@ int main(int argc, const char** argv)
 
 Combining the example source code shown above results in the following source code files:
 
-*   [mama.properties]({{ site.repository }}/blob/master/src/helloworld/mama.properties){:target="_blank"}
-*   [topicPublishOne.c]({{ site.repository }}/blob/master/src/helloworld/topicPublishOne.c){:target="_blank"}
+<ul>
+{% for item in page.links %}
+<li><a href="{{ site.repository }}{{ item.link }}" target="_blank">{{ item.label }}</a></li>
+{% endfor %}
+</ul>
 
 ### Building
 
@@ -448,7 +417,7 @@ Please see the Licensing file for details
 Message published, closing Solace middleware bridge.
 ```
 
-You can see the message published by listening for it on the **Solace message router** with the [`sdkperf_c` utility]({{ site.docs-sdkperf }}):
+You can see the message published by listening for it on **Solace messaging** with the [`sdkperf_c` utility]({{ site.docs-sdkperf }}):
 
 ```
 $ ./sdkperf_c -cip=192.168.1.75 -cu=default@default -stl=">" -md
@@ -482,7 +451,7 @@ Binary Attachment:                      len=44
 
 Between the _Start Message_ and _End Message_ console output you can see the published message topic `'tutorial/topic'` as **Destination** and the message with the string field **“Hello World”** as **Binary Attachment**.
 
-Congratulations! You have now successfully published a message on a Solace message router using OpenMAMA with the Solace middleware bridge.
+Congratulations! You have now successfully published a message on Solace messaging using OpenMAMA with the Solace middleware bridge.
 
 If you have any issues with this program, check the [Solace community]({{ site.link-community }}){:target="_blank"} for answers to common issues.
 

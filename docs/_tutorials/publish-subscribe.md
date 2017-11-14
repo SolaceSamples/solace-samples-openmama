@@ -3,6 +3,13 @@ layout: tutorials
 title: Publish/Subscribe
 summary: Learn how to pub/sub using OpenMAMA with the Solace middleware bridge.
 icon: I_dev_P+S.svg
+links:
+    - label: mama.properties
+      link: /blob/master/src/pubsub/mama.properties
+    - label: topicSubscriber.c
+      link: blob/master/src/pubsub/topicSubscriber.c
+    - label: topicPublisher.c
+      link: /blob/master/src/pubsub/topicPublisher.c
 ---
 <br><br>
 
@@ -15,15 +22,21 @@ This tutorial assumes the following:
 *   You are familiar with Solace [core concepts]({{ site.docs-solace-concepts }}){:target="_top"}.
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases){:target="_blank"}.
     *   Solace middleware bridge with its dependencies is also installed
-*   You have access to a running Solace Message Router with the following configuration:
-    *   Enabled Message VPN
-    *   Enabled Client Username
+*   You have access to Solace messaging with the following configuration details:
+    *   Connectivity information for a Solace message-VPN
+    *   Enabled client username and password
+    
+{% if jekyll.environment == 'solaceCloud' %}
+One simple way to get access to Solace messaging quickly is to create a messaging service in Solace Cloud [as outlined here]({{ site.links-solaceCloud-setup}}){:target="_top"}. You can find other ways to get access to Solace messaging below.
+{% else %}
+One simple way to get access to a Solace message router is to start a Solace VMR load [as outlined here]({{ site.docs-vmr-setup }}){:target="_top"}. By default the Solace VMR will with the “default” message VPN configured and ready for guaranteed messaging. Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration adapt the tutorial appropriately to match your configuration.
+{% endif %}
 
 ## Goals
 
-The goal of this tutorial is to demonstrate basic messaging interactions using OpenMAMA with the **Solace middleware bridge**. This tutorial’s samples are similar to the OpenMAMA’s [mamapublisherc.c](https://github.com/OpenMAMA/OpenMAMA/blob/master/mama/c_cpp/src/examples/c/mamapublisherc.c){:target="_blank"} and [mamasubscriberc.c](https://github.com/OpenMAMA/OpenMAMA/blob/master/mama/c_cpp/src/examples/c/mamasubscriberc.c){:target="_blank"}, but with a distinct focus on configuring OpenMAMA with **Solace Message Routers**. See the [Resources](#resources) section below for some further links to other OpenMAMA tutorials and examples.
+The goal of this tutorial is to demonstrate basic messaging interactions using OpenMAMA with the **Solace middleware bridge**. This tutorial’s samples are similar to the OpenMAMA’s [mamapublisherc.c](https://github.com/OpenMAMA/OpenMAMA/blob/master/mama/c_cpp/src/examples/c/mamapublisherc.c){:target="_blank"} and [mamasubscriberc.c](https://github.com/OpenMAMA/OpenMAMA/blob/master/mama/c_cpp/src/examples/c/mamasubscriberc.c){:target="_blank"}, but with a distinct focus on configuring OpenMAMA with **Solace messaging**. See the [Resources](#resources) section below for some further links to other OpenMAMA tutorials and examples.
 
-This tutorial will show you how to publish a message with one string field to a specific topic on a Solace Message Router using OpenMAMA C API.
+This tutorial will show you how to publish a message with one string field to a specific topic on Solace messaging using OpenMAMA C API.
 
 This tutorial will show you how to use OpenMAMA C API:
 
@@ -38,51 +51,11 @@ Simplified installation instructions for OpenMAMA with Solace middleware bridge 
 
 For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki/Build-Instructions){:target="_blank"}.
 
-## Getting Access to Solace Message Router
-
-There are two ways you can get hold of the **Solace message router**:
-
-*   If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
-*   If you do not have access to a Solace message router, you will need to use the [Solace Virtual Message Router]({{ site.link-tech-vmr }}){:target="_top"}. Go through the [Set up a VMR]({{ site.docs-vmr-setup }}){:target="_top"} tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
-
-Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration, adapt the instructions to match your configuration.
-
-## Solace Message Router Properties
-
-In order to send or receive messages to a Solace Message Router, you need to know a few details of how to connect to the Solace Message Router. Specifically you need to know the following:
-
-<table>
-<thead>
-<tr>
-<th>Resource</th>
-<th>Value</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Host</td>
-<td>String of the form `DNS name` or `IP:Port`</td>
-<td>This is the address clients use when connecting to the Solace Message Router to send and receive messages. For a Solace VMR this there is only a single interface so the IP is the same as the management IP address. For Solace Message Router appliances this is the host address of the message-backbone.</td>
-</tr>
-<tr>
-<td>Message VPN</td>
-<td>String</td>
-<td>The Solace Message Router Message VPN that this client should connect to. The simplest option is to use the `default` message-vpn which is present on all Solace Message Routers and fully enabled for message traffic on Solace VMRs.</td>
-</tr>
-<tr>
-<td>Client Username</td>
-<td>String</td>
-<td>The client username. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value.</td>
-</tr>
-<tr>
-<td>Client Password</td>
-<td>String</td>
-<td>The optional client password. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value or omitted.</td>
-</tr>
-</tbody>
-</table>
+{% if jekyll.environment == 'solaceCloud' %}
+  {% include solaceMessaging-cloud.md %}
+{% else %}
+    {% include solaceMessaging.md %}
+{% endif %}  
 
 Example of specifying these properties [see here]({{ site.repository }}/blob/master/src/pubsub/mama.properties){:target="_blank"} and detailed explanation of them is in the [Solace OpenMAMA “Hello World” tutorial]({{ site.baseurl }}/hello-world).
 
@@ -341,9 +314,11 @@ Our application consists of two executables: _topicSubscriber_ and _topicPublish
 
 If you combine the example source code shown above and split them into the two mentioned executables, it results in the source that is available for download:
 
-*   [mama.properties]({{ site.repository }}/blob/master/src/pubsub/mama.properties){:target="_blank"}
-*   [topicSubscriber.c]({{ site.repository }}/blob/master/src/pubsub/topicSubscriber.c){:target="_blank"}
-*   [topicPublisher.c]({{ site.repository }}/blob/master/src/pubsub/topicPublisher.c){:target="_blank"}
+<ul>
+{% for item in page.links %}
+<li><a href="{{ site.repository }}{{ item.link }}" target="_blank">{{ item.label }}</a></li>
+{% endfor %}
+</ul>
 
 ### Building
 
