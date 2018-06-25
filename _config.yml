@@ -1,0 +1,21 @@
+# Site settings
+title: Solace Samples OpenMAMA
+summary: These tutorials get you up to speed sending and receiving messages with Solace technology.
+baseurl: "/solace-samples-openmama" # the subpath of your site, e.g. /solace-samples-java
+repository: https://github.com/SolaceSamples/solace-samples-openmama
+
+# Also see _includes/intro.html to customize the description which gets included in index.html.
+
+# Links
+link-portal: //dev.solace.com
+link-tech: //dev.solace.com/tech/
+link-tech-vmr: //dev.solace.com/tech/virtual-message-router/
+link-community: //dev.solace.com/community/
+link-support: //dev.solace.com/support/
+link-downloads: //dev.solace.com/downloads/
+link-tech-openmama: //dev.solace.com/tech/openmama/
+links-solaceCloud-setup: //cloud.solace.com/create-messaging-service/
+docs-solace-concepts: //docs.solace.com/Features/Core-Concepts.htm
+docs-openmama-concepts: //docs.solace.com/Solace-OpenMama/Solace-OpenMAMA-Overview.htm
+docs-openmama-bridges: //docs.solace.com/Solace-OpenMama/Configuring-Solace-OpenMAMA-Bridges.htm
+docs-sdkperf: //docs.solace.com/SDKPerf/SDKPerf.htm
