@@ -9,13 +9,13 @@ The "Getting Started" tutorials will get you up to speed and sending messages wi
 
 ## Contents
 
-This repository contains code and matching tutorial walk through to get you started with OpenMAMA and the Solace transport bridge. For a nice introduction to the OpenMAMA with Solace, check out the [tutorials landing page](https://solacesamples.github.io/solace-samples-openmama/).
+This repository contains code and matching tutorial walk through to get you started with OpenMAMA and the Solace transport bridge. For a nice introduction to the OpenMAMA with Solace, check out the [tutorials landing page](https://dev.solace.com/samples/solace-samples-openmama/).
 
 See the individual tutorials for details:
 
-- [Linux Installation](https://solacesamples.github.io/solace-samples-openmama/installation-linux)
-- [Hello World](https://solacesamples.github.io/solace-samples-openmama/hello-world)
-- [Publish/Subscribe](https://solacesamples.github.io/solace-samples-openmama/publish-subscribe)
+- [Linux Installation](https://dev.solace.com/samples/solace-samples-openmama/installation-linux)
+- [Hello World](https://dev.solace.com/samples/solace-samples-openmama/hello-world)
+- [Publish/Subscribe](https://dev.solace.com/samples/solace-samples-openmama/publish-subscribe)
 
 ## Checking out and Building
 
