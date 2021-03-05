@@ -92,6 +92,7 @@ For more information about OpenMAMA:
 
 For more information about Solace technology:
 
+- [Tutorials](https://tutorials.solace.dev/)
 - The Solace Developer Portal website at: http://dev.solace.com
 - Get a better understanding of [Solace technology](https://solace.com/products/tech/).
 - Check out the [Solace blog](http://dev.solace.com/blog/) for other interesting discussions around Solace technology
